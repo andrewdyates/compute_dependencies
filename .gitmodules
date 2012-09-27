@@ -1,0 +1,6 @@
+[submodule "HHG_R"]
+	path = HHG_R
+	url = git@github.com:andrewdyates/HHG_R.git
+[submodule "dcor"]
+	path = dcor
+	url = git@github.com:andrewdyates/dcor.git
