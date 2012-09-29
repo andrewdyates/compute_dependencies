@@ -18,6 +18,7 @@ class Computer(object):
     Returns:
       dict {str:num} such that each key in MNAMES has a value.
     """
+    assert x and y # twart pychecker warnings
     return {}
 
 class BatchComputer(object):
