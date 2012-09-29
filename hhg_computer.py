@@ -8,6 +8,7 @@ import rpy2.robjects.numpy2ri
 rpy2.robjects.numpy2ri.activate()
 import numpy as np
 
+
 class HHGComputer(Computer):
   MNAMES = ["SUM_CHI", "SUM_LR", "MAX_CHI", "MAX_LR"]
 
@@ -34,3 +35,4 @@ class HHGComputer(Computer):
       "MAX_LR": float(HHG.rx('max_lr')[0][0]) / (n-2) / lg
       }
 
+COMPUTERS = {"HHGComputer": HHGComputer}

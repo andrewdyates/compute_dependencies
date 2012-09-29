@@ -58,3 +58,10 @@ class KendallComputer(Computer):
       "KENDALL_PV": p
       }
 
+COMPUTERS = {
+  "PCCComputer": PCCComputer,
+  "CovComputer": CovComputer,
+  "SpearmanComputer": SpearmanComputer,
+  "EuclideanComputer": EuclideanComputer,
+  "KendallComputer": KendallComputer,
+  }

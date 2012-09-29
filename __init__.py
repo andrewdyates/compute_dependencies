@@ -20,7 +20,6 @@ class Computer(object):
     """
     return {}
 
-
 class BatchComputer(object):
   """Compute, cache, and save a batch of dependency measures.
 

@@ -4,6 +4,7 @@ import minepy
 import numpy as np
 from __init__ import Computer
 
+
 class MINEComputer(Computer):
   MNAMES = ["MIC", "MAS", "MEV", "MCN"]
 
@@ -22,3 +23,4 @@ class MINEComputer(Computer):
       "MCN": self.mine.mev()
       }
 
+COMPUTERS = {"MINEComputer": MINEComputer}
