@@ -65,6 +65,7 @@ class BatchComputer(object):
     assert set(results.keys()) == set(self.MNAMES.keys())
     for key in self.MNAMES:
       self.Matrices[key][i] = results[key]
+    return results
   
   def get(self, i):
     """Return dict of dependency values computed for index i."""
@@ -75,7 +76,7 @@ class BatchComputer(object):
     """Return total number of not-a-numbers in all results matrices."""
     return sum([np.sum(np.isnan(M)) for M in self.Matrices.values()])
   
-  def save(self, out_dir, batchname):
+  def save(self, outdir, batchname):
     """Save each of many result matrices to file.
 
     Args:
@@ -87,7 +88,7 @@ class BatchComputer(object):
     """
     out_names = {}
     for name, M in self.Matrices.items():
-      output_fname = os.path.join(out_dir, "%s.%s.npy" % (batchname, name))
+      output_fname = os.path.join(outdir, "%s.%s.npy" % (batchname, name))
       np.save(output_fname, M)
       out_names[name] = output_fname
     return out_names
