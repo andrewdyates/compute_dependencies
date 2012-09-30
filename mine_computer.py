@@ -24,4 +24,4 @@ class MINEComputer(Computer):
       "MCN": self.mine.mev()
       }
 
-COMPUTERS = {"MINEComputer": MINEComputer}
+COMPUTERS = {"MINE": MINEComputer}
