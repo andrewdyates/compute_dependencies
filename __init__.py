@@ -68,7 +68,7 @@ class BatchComputer(object):
     assert len(np.shape(x)) <= 2 and len(np.shape(y)) <= 2
     assert i >= 0 and i < self.size
     results = self.computer.compute(x, y)
-    assert set(results.keys()) == set(self.MNAMES.keys())
+    assert set(results.keys()) == set(self.MNAMES)
     for key in self.MNAMES:
       self.Matrices[key][i] = results[key]
     self.computed_set.add(i)
