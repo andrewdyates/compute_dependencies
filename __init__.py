@@ -3,6 +3,31 @@
 import os.path
 import numpy as np
 
+def intersect(x, y):
+  """Return x, y such that no dimension has a missing value.
+
+  Returns:
+    (x,y) np.array tuple with no missing values or mismatched dimensions
+  """
+  if hasattr(x, 'mask'):
+    x_mask = x.mask
+  else:
+    x_mask = np.zeros(x.shape, dtype=np.bool)
+  if hasattr(y, 'mask'):
+    y_mask = y.mask
+  else:
+    y_mask = np.zeros(y.shape, dtype=np.bool)
+  join_select = (~x_mask & ~y_mask)
+  if hasattr(x, 'mask'):
+    r_x = x[join_select].data
+  else:
+    r_x = x[join_select]
+  if hasattr(y, 'mask'):
+    r_y = y[join_select].data
+  else:
+    r_y = y[join_select]    
+  return (r_x, r_y)
+
 
 class Computer(object):
   """BASE CLASS: Compute measures of dependency between two vectors."""
