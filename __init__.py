@@ -2,6 +2,7 @@
 """Compute measures of dependency between two vectors."""
 import os.path
 import numpy as np
+import errno
 
 def intersect(x, y):
   """Return x, y such that no dimension has a missing value.
@@ -112,7 +113,7 @@ class BatchComputer(object):
     """Save each of many result matrices to file.
 
     Args:
-      out_dir: str of path where files will be saved.
+      outdir: str of path where files will be saved.
       batchname: str of filename tag;
         forms filename as: "%s.%s.npy" % (batchname, dep_name)
     Returns:
@@ -120,7 +121,17 @@ class BatchComputer(object):
     """
     out_names = {}
     for name, M in self.Matrices.items():
-      output_fname = os.path.join(outdir, "%s.%s.npy" % (batchname, name))
+      target_dir = os.path.join(outdir, name)
+      if not os.path.exists(target_dir):
+        make_dir(target_dir)
+      output_fname = os.path.join(target_dir, "%s.%s.npy" % (batchname, name))
       np.save(output_fname, M)
       out_names[name] = output_fname
     return out_names
+
+def make_dir(dirname):
+  try:
+    os.makedirs(dirname)
+  except OSError, e:
+    if e.errno != errno.EEXIST: raise
+  return dirname
