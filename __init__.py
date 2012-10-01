@@ -5,6 +5,9 @@ import numpy as np
 import errno
 import time
 
+# File name pattern used to save matrices.
+RX_SAVE_PTN = re.compile("(?P<batchname>.+?)\.(?P<mname>[^.])+\.npy")
+
 def intersect(x, y):
   """Return x, y such that no dimension has a missing value.
 
@@ -122,6 +125,7 @@ class BatchComputer(object):
     out_names = {}
     for name, M in self.Matrices.items():
       output_fname = os.path.join(target_dir, "%s.%s.npy" % (batchname, name))
+      assert RX_SAVE_PTN.match(os.path.basename(output_fname))
       np.save(output_fname, M)
       out_names[name] = output_fname
     return out_names
