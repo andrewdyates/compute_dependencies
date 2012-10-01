@@ -9,6 +9,7 @@ class MINEComputer(Computer):
   MNAMES = ["MIC", "MAS", "MEV", "MCN"]
 
   def __init__(self, alpha=0.6, c=15):
+    alpha, c = float(alpha), int(c)
     assert alpha > 0 and alpha <= 1 and c > 0
     self.mine = minepy.MINE(alpha=alpha, c=c)
     super(MINEComputer, self).__init__()
@@ -23,4 +24,4 @@ class MINEComputer(Computer):
       "MCN": self.mine.mev()
       }
 
-COMPUTERS = {"MINEComputer": MINEComputer}
+COMPUTERS = {"MINE": MINEComputer}

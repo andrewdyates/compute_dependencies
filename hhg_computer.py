@@ -35,4 +35,4 @@ class HHGComputer(Computer):
       "MAX_LR": float(HHG.rx('max_lr')[0][0]) / (n-2) / lg
       }
 
-COMPUTERS = {"HHGComputer": HHGComputer}
+COMPUTERS = {"HHG": HHGComputer}

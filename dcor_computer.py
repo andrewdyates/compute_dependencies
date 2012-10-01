@@ -13,5 +13,5 @@ class DcorComputer(Computer):
       "DCOV": dc
       }
 
-COMPUTERS = {"DcorComputer": DcorComputer}
+COMPUTERS = {"Dcor": DcorComputer}
 

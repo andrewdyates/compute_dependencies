@@ -19,6 +19,7 @@ class Computer(object):
     Returns:
       dict {str:num} such that each key in MNAMES has a value.
     """
+    assert x and y # twart pychecker warnings
     return {}
 
 class BatchComputer(object):
@@ -41,6 +42,7 @@ class BatchComputer(object):
     """
     assert size is not None and size > 0
     assert computer is not None
+    self.computed_set = set()
     
     self.computer = computer
     # Each of MNAMES will generate an individual results matrix.
@@ -51,6 +53,10 @@ class BatchComputer(object):
     for n in self.MNAMES:
       self.Matrices[n] = np.empty(size)
       self.Matrices[n].fill(np.nan)
+
+  @property
+  def n_computed(self):
+    return len(self.computed_set)
     
   def compute(self, x, y, i):
     """Compute and cache measure of dependencies using `compute`.
@@ -63,9 +69,11 @@ class BatchComputer(object):
     assert len(np.shape(x)) <= 2 and len(np.shape(y)) <= 2
     assert i >= 0 and i < self.size
     results = self.computer.compute(x, y)
-    assert set(results.keys()) == set(self.MNAMES.keys())
+    assert set(results.keys()) == set(self.MNAMES)
     for key in self.MNAMES:
       self.Matrices[key][i] = results[key]
+    self.computed_set.add(i)
+    return results
   
   def get(self, i):
     """Return dict of dependency values computed for index i."""

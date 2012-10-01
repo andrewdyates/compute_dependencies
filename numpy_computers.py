@@ -59,9 +59,9 @@ class KendallComputer(Computer):
       }
 
 COMPUTERS = {
-  "PCCComputer": PCCComputer,
-  "CovComputer": CovComputer,
-  "SpearmanComputer": SpearmanComputer,
-  "EuclideanComputer": EuclideanComputer,
-  "KendallComputer": KendallComputer,
+  "PCC": PCCComputer,
+  "Cov": CovComputer,
+  "Spearman": SpearmanComputer,
+  "Euclidean": EuclideanComputer,
+  "Kendall": KendallComputer,
   }
