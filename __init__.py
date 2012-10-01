@@ -3,6 +3,7 @@
 import os.path
 import numpy as np
 import errno
+import time
 
 def intersect(x, y):
   """Return x, y such that no dimension has a missing value.
@@ -76,13 +77,12 @@ class BatchComputer(object):
     # Create empty dependency matrices
     self.Matrices = {}
     for n in self.MNAMES:
-      self.Matrices[n] = np.empty(size)
-      self.Matrices[n].fill(np.nan)
+      self.Matrices[n] = np.empty(size).fill(np.nan)
 
   @property
   def n_computed(self):
     return len(self.computed_set)
-    
+
   def compute(self, x, y, i):
     """Compute and cache measure of dependencies using `compute`.
 
@@ -121,17 +121,7 @@ class BatchComputer(object):
     """
     out_names = {}
     for name, M in self.Matrices.items():
-      target_dir = os.path.join(outdir, name)
-      if not os.path.exists(target_dir):
-        make_dir(target_dir)
       output_fname = os.path.join(target_dir, "%s.%s.npy" % (batchname, name))
       np.save(output_fname, M)
       out_names[name] = output_fname
     return out_names
-
-def make_dir(dirname):
-  try:
-    os.makedirs(dirname)
-  except OSError, e:
-    if e.errno != errno.EEXIST: raise
-  return dirname
