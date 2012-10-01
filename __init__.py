@@ -1,9 +1,12 @@
 #!/usr/bin/python
-"""Compute measures of dependency between two vectors."""
+"""Compute measures of dependency between two vectors.
+
+BatchComputer.save saves files that matches RX_SAVE_PTN;
+  use this for automatic parsing of file system contents in matrix reassembly.
+"""
 import os.path
 import numpy as np
-import errno
-import time
+import re
 
 # File name pattern used to save matrices.
 RX_SAVE_PTN = re.compile("(?P<batchname>.+?)\.(?P<mname>[^.])+\.npy")
@@ -48,7 +51,7 @@ class Computer(object):
     Returns:
       dict {str:num} such that each key in MNAMES has a value.
     """
-    assert x and y # twart pychecker warnings
+    assert x and y # thwart pychecker warnings
     return {}
 
 class BatchComputer(object):
@@ -124,7 +127,7 @@ class BatchComputer(object):
     """
     out_names = {}
     for name, M in self.Matrices.items():
-      output_fname = os.path.join(target_dir, "%s.%s.npy" % (batchname, name))
+      output_fname = os.path.join(outdir, "%s.%s.npy" % (batchname, name))
       assert RX_SAVE_PTN.match(os.path.basename(output_fname))
       np.save(output_fname, M)
       out_names[name] = output_fname
