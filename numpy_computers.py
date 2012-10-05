@@ -10,9 +10,13 @@ class PCCComputer(Computer):
   def compute(self, x, y):
     assert np.size(x) == np.size(y)
     r, pv = mstats.pearsonr(x,y)
+    try:
+      n_pv = float(pv)
+    except ValueError:
+      n_pv = float(pv.data[0])
     return {
       'PEARSON': r,
-      'PEARSON_PV': pv
+      'PEARSON_PV': n_pv
       }
 
 class CovComputer(Computer):
