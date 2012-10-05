@@ -82,8 +82,9 @@ class BatchComputer(object):
     self.size = size
     # Create empty dependency matrices
     self.Matrices = {}
-    for n in self.MNAMES:
-      self.Matrices[n] = np.empty(size).fill(np.nan)
+    for key in self.MNAMES:
+      self.Matrices[key] = np.empty(size)
+      self.Matrices[key].fill(np.nan)
 
   @property
   def n_computed(self):
