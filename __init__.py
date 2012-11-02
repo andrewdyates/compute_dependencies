@@ -115,14 +115,15 @@ class BatchComputer(object):
   def nans(self):
     """Return total number of not-a-numbers in all results matrices."""
     return sum([np.sum(np.isnan(M)) for M in self.Matrices.values()])
-  
-  def save(self, outdir, batchname):
+
+  def save(self, outdir, batchname, overwrite=False):
     """Save each of many result matrices to file.
 
     Args:
       outdir: str of path where files will be saved.
       batchname: str of filename tag;
         forms filename as: "%s.%s.npy" % (batchname, dep_name)
+      overwrite: if the file to write exists, overwrite it?
     Returns:
       {str:str} of dependency_name => filepath written
     """
@@ -130,6 +131,7 @@ class BatchComputer(object):
     for name, M in self.Matrices.items():
       output_fname = os.path.join(outdir, "%s.%s.npy" % (batchname, name))
       assert RX_SAVE_PTN.match(os.path.basename(output_fname))
-      np.save(output_fname, M)
+      if overwrite or not os.path.exists(output_fname):
+        np.save(output_fname, M)
       out_names[name] = output_fname
     return out_names
