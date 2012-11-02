@@ -9,7 +9,7 @@ import numpy as np
 import re
 
 # File name pattern used to save matrices.
-RX_SAVE_PTN = re.compile("(?P<batchname>.+?)\.(?P<mname>[^.])+\.npy")
+RX_SAVE_PTN = re.compile("(?P<batchname>.+?)\.(?P<mname>[^.]+)\.npy")
 
 def intersect(x, y):
   """Return x, y such that no dimension has a missing value.
