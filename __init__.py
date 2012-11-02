@@ -116,7 +116,11 @@ class BatchComputer(object):
     """Return total number of not-a-numbers in all results matrices."""
     return sum([np.sum(np.isnan(M)) for M in self.Matrices.values()])
 
-  def save(self, outdir, batchname, overwrite=False):
+  def get_save_names(self, outdir, batchname):
+    """Return file names that would be saved by .save()"""
+    return self.save(outdir, batchname, dry=True)
+
+  def save(self, outdir, batchname, overwrite=False, dry=False):
     """Save each of many result matrices to file.
 
     Args:
@@ -124,6 +128,7 @@ class BatchComputer(object):
       batchname: str of filename tag;
         forms filename as: "%s.%s.npy" % (batchname, dep_name)
       overwrite: if the file to write exists, overwrite it?
+      dry: if True, don't write files
     Returns:
       {str:str} of dependency_name => filepath written
     """
@@ -132,6 +137,7 @@ class BatchComputer(object):
       output_fname = os.path.join(outdir, "%s.%s.npy" % (batchname, name))
       assert RX_SAVE_PTN.match(os.path.basename(output_fname))
       if overwrite or not os.path.exists(output_fname):
-        np.save(output_fname, M)
+        if not dry:
+          np.save(output_fname, M)
       out_names[name] = output_fname
     return out_names
