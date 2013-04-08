@@ -10,8 +10,8 @@ class DcorComputer(Computer):
   def compute(self, x, y):
     dc, dr, dvx, dvy = dcov_all(x,y)
     return {
-      "DCOR": np.sqrt(dr),
-      "DCOV": np.sqrt(dc)
+      "DCOR": dr,
+      "DCOV": dc
       }
 
 COMPUTERS = {"Dcor": DcorComputer}
