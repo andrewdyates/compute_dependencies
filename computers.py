@@ -7,10 +7,10 @@ class COMPUTERCLS(object):
   # Just add new names to the list as they are created.
   # Map to module name
   KNOWN_COMPUTERS = {
-    "Dcor", 'dcor_computer',
-    "PCC", 'numpy_computers',
-    "Cov", 'numpy_computers',
-    "Spearman", 'numpy_computers',
+    "Dcor": 'dcor_computer',
+    "PCC": 'numpy_computers',
+    "Cov": 'numpy_computers',
+    "Spearman": 'numpy_computers',
     "Euclidean": 'numpy_computers',
     "Kendall": 'numpy_computers',
     "MINE": 'mine_computer',
@@ -22,9 +22,10 @@ class COMPUTERCLS(object):
     # Get computer class from module, but only import on request
     assert arg in self.KNOWN_COMPUTERS
     mod = self.KNOWN_COMPUTERS[arg]
-    globals()[mod] = __import__("mod")
-    return globals()[mod].COMPUTERS[arg]
-
+    exec "import %s" % mod
+    exec "r = %s.COMPUTERS['%s']" % (mod, arg)
+    return r
+  
 COMPUTERS = COMPUTERCLS()
 
 # OLD WAY
